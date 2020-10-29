@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src=http://api.map.baidu.com/api?v=3.0&ak=Sl1ihm6xvnI5xgdDuBUiInIyul9kVdIZ"></script>
+    <title>GPS转百度</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	//GPS坐标
+	var x = 120.057000;
+	var y = 30.255020;
+	var ggPoint = new BMap.Point(x,y);
+
+	//地图初始化
+	var bm = new BMap.Map("allmap");
+	bm.centerAndZoom(ggPoint, 15);
+	bm.addControl(new BMap.NavigationControl());
+
+
+	//坐标转换完之后的回调函数
+	translateCallback = function (data){
+		if(data.status === 0) {
+			// var marker = new BMap.Marker(data.points[0]);
+			// bm.addOverlay(marker);
+			var mySize = new BMap.Size(50, 50);
+			var myIcon = new BMap.Icon("../assets/img/jizhan3.png", mySize, { //会以base64的方式传参iconCar
+				//这行不加，自定义图片就会出问题
+				imageSize: mySize
+			});
+
+			var mk = new BMap.Marker(data.points[0], {
+				icon: myIcon
+			});
+
+			bm.addOverlay(mk);//将标注添加到地图中
+			var label = new BMap.Label("转换后的百度坐标",{offset:new BMap.Size(20,-10)});
+			mk.setLabel(label); //添加百度label
+			bm.setCenter(data.points[0]);
+		}
+	}
+
+	var convertor = new BMap.Convertor();//创建一个坐标转换的实例
+	var pointArr = [];
+	pointArr.push(ggPoint);
+	convertor.translate(pointArr, 1, 5, translateCallback)
+
+	// setTimeout(function(){
+	// 	var convertor = new BMap.Convertor();//创建一个坐标转换的实例
+	// 	var pointArr = [];
+	// 	pointArr.push(ggPoint);
+	// 	convertor.translate(pointArr, 1, 5, translateCallback)
+	// }, 1000);//对指定的点数组进行坐标转换
+</script>
+
