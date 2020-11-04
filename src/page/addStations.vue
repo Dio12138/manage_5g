@@ -304,6 +304,9 @@
             v-model.trim="addForm.cover_scence"
             placeholder="请选择小区覆盖类型"
           >
+          <el-card>
+            <el-card></el-card>
+          </el-card>
             <el-option label="密集城区" value="密集城区"></el-option>
             <el-option label="核心城区" value="核心城区"></el-option>
             <el-option label="一般城区" value="一般城区"></el-option>

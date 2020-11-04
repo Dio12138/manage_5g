@@ -1,32 +1,28 @@
 <template>
-  <div >
-    <head-top></head-top>   
-      <el-card>
-        <!--搜索 添加 -->
-        <el-name class="bs1">日期</el-name>
-        <el-input
-          class="wb1"
-          v-model="input"
-          placeholder="请输入日期"
-        ></el-input>
-        <el-name class="bs1">基站ID</el-name>
-        <el-input
-          class="wb1"
-          placeholder="请输入基站id"
-          @keyup.enter.native="getStations"
-        ></el-input>
-        <el-button type="primary" @click="getStations">查询</el-button>
-        <!-- <el-name>数据采集</el-name> -->
-        <el-input
-          class="wb1"
-          type="file"
-          id="files"
-          ref="refFile"
-          v-on:change="importCsv"
-        ></el-input>
-        <el-button type="primary" @click="confirmUpload">确定上传</el-button>
-      </el-card>
-   
+  <div>
+    <head-top></head-top>
+    <el-card>
+      <!--搜索 添加 -->
+      <el-name class="bs1">日期</el-name>
+      <el-input class="wb1" v-model="input" placeholder="请输入日期"></el-input>
+      <el-name class="bs1">基站ID</el-name>
+      <el-input
+        class="wb1"
+        placeholder="请输入基站id"
+        @keyup.enter.native="getStations"
+      ></el-input>
+      <el-button type="primary" @click="getStations">查询</el-button>
+      <!-- <el-name>数据采集</el-name> -->
+      <el-input
+        class="wb1"
+        type="file"
+        id="files"
+        ref="refFile"
+        v-on:change="importCsv"
+      ></el-input>
+      <el-button type="primary" @click="confirmUpload">确定上传</el-button>
+    </el-card>
+
     <!-- <div class="map-part">
       <h2>百度地图</h2>
     </div> -->
@@ -97,7 +93,7 @@ export default {
 } */
 .wb1 {
   width: 300px;
-  
+
   border-radius: 5px;
   text-align: center;
   background-color: #fff;

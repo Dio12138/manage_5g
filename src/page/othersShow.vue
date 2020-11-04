@@ -111,38 +111,49 @@ export default {
                         var res = response.data.stationData;
                         console.log(res);
                         if(this.date){
-                            console.log(this.date);
-                            var uDate = strtotime('202/4/27');
-                            // var endDate = strtotime(this.date + '+10day',this.date);
-                            console.log(uDate);
-                            for(var i=0;i<res.length;i++){
-                                var timeArr = res[i]["parsing_time"].split(" ");
-                                console.log(timeArr);
-                                if(timeArr[1] == "8:00"){
-                                    this.time.push(timeArr[0]);
-                                    this.params.RRC_set_request.push(res[i]["RRC_build_request_times"]);
-                                    this.params.RRC_reset_request.push(res[i]["RRC_rebuild_request_times"]);
-                                    this.params.RRC_success_request.push(res[i]["RRC_build_success_times"]);
-                                    this.params.coonect_success.push(res[i]["wireless_connet_success_rate"]);
-                                    this.params.connect_lost.push(res[i]["ERAB_failure_rate"]);
-                                    this.params.ul_available_PRB.push(res[i]["uplink_available_PRBnumber"]);
-                                    this.params.ul_average_PRB.push(res[i]["uplink_occupy_PRBnumber"]);
-                                    this.params.ul_utilization_PRB.push(res[i]["uplink_PRBrate"]);
-                                    this.params.dl_available_PRB.push(res[i]["downlink_available_PRBnumber"]);
-                                    this.params.dl_average_PRB.push(res[i]["downlink_occupy_PRBnumber"]);
-                                    this.params.dl_utilization_PRB.push(res[i]["downlink_PRBrate"]);
-                                    this.params.RRC_connect_users.push(res[i]["RRC_connet_average_number"]);
-                                    this.params.ul_MBPS.push(res[i]["uplink_valid_MBPS"]);
-                                    this.params.ul_total_MBPS.push(res[i]["uplink_reception_total_MBPS"]);
-                                    this.params.dl_MBPS.push(res[i]["downlink_valid_MBPS"]);
-                                    this.params.dl_total_MBPS.push(res[i]["downlink_transmission_total_MBPS"]);
-                                    this.params.ul_transfer_time.push(res[i]["uplink_transmission_total_time"]);
-                                    this.params.dl_transfer_time.push(res[i]["downlink_transmission_total_time"]);
-                                    this.params.PDU_release_sucess.push(res[i]["PDU_normal_release"]);
-                                    this.params.PDU_release_error.push(res[i]["PDU_abnormal_release"]);
-                                    this.params.CQI_proportion.push(res[i]["CQI_high_order_rate"]);
-                                    this.params.CQI_total.push(res[i]["CQI_total_quantity"]);
+                            var sDate =new Date(this.date).getTime();
+                            var showArr = [];
+                            var len = 0;
+                            res.forEach(item => {
+                                var d = new Date(item["parsing_time"]);
+                                var timestamp = d.getTime();
+                                var h = d.getHours();
+                                if(timestamp >= sDate && h == 8){
+                                    showArr.push(item);
                                 }
+                            });
+                            console.log(showArr);
+                            if(showArr.length < 10){
+                                len = showArr.length;
+                            }else{
+                                len = 10;
+                            }
+                            for(var i=0;i<len;i++){
+                                var timeArr = showArr[i]["parsing_time"].split(" ");
+                                // console.log(timeArr);
+                                this.time.push(timeArr[0]);
+                                this.params.RRC_set_request.push(showArr[i]["RRC_build_request_times"]);
+                                this.params.RRC_reset_request.push(showArr[i]["RRC_rebuild_request_times"]);
+                                this.params.RRC_success_request.push(showArr[i]["RRC_build_success_times"]);
+                                this.params.coonect_success.push(showArr[i]["wireless_connet_success_rate"]);
+                                this.params.connect_lost.push(showArr[i]["ERAB_failure_rate"]);
+                                this.params.ul_available_PRB.push(showArr[i]["uplink_available_PRBnumber"]);
+                                this.params.ul_average_PRB.push(showArr[i]["uplink_occupy_PRBnumber"]);
+                                this.params.ul_utilization_PRB.push(showArr[i]["uplink_PRBrate"]);
+                                this.params.dl_available_PRB.push(showArr[i]["downlink_available_PRBnumber"]);
+                                this.params.dl_average_PRB.push(showArr[i]["downlink_occupy_PRBnumber"]);
+                                this.params.dl_utilization_PRB.push(showArr[i]["downlink_PRBrate"]);
+                                this.params.RRC_connect_users.push(showArr[i]["RRC_connet_average_number"]);
+                                this.params.ul_MBPS.push(showArr[i]["uplink_valid_MBPS"]);
+                                this.params.ul_total_MBPS.push(showArr[i]["uplink_reception_total_MBPS"]);
+                                this.params.dl_MBPS.push(showArr[i]["downlink_valid_MBPS"]);
+                                this.params.dl_total_MBPS.push(showArr[i]["downlink_transmission_total_MBPS"]);
+                                this.params.ul_transfer_time.push(showArr[i]["uplink_transmission_total_time"]);
+                                this.params.dl_transfer_time.push(showArr[i]["downlink_transmission_total_time"]);
+                                this.params.PDU_release_sucess.push(showArr[i]["PDU_normal_release"]);
+                                this.params.PDU_release_error.push(showArr[i]["PDU_abnormal_release"]);
+                                this.params.CQI_proportion.push(showArr[i]["CQI_high_order_rate"]);
+                                this.params.CQI_total.push(showArr[i]["CQI_total_quantity"]);
                             }
                         }
                         

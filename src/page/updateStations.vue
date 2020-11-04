@@ -636,7 +636,7 @@ export default {
       },
       updateDialogVisible: false,
       updateForm: {},
-      updateData: [],
+      updateData: {},
 
       //表单验证
       updateFormRules: {
@@ -792,6 +792,7 @@ export default {
     //监听修改用户的对话框的关闭
     updateDialogClosed() {
       this.$refs.updateFormRef.resetFields();
+      // this.$refs.updateFormRef.bodyWrapper.scrollTop =0;
       // this.$refs.resetFields();
     },
     //展示编辑用户的对话框(再一次查询)

@@ -64,7 +64,7 @@ export default {
             var len = response.data.length;
             console.log(response.data);
             for (let i = 0; i < len; i++) {
-              this.azimuth[i] = response.data[i]["方位角"];
+              this.azimuth[i] = response.data[i]["azimuth"];
               this.name[i] = response.data[i].location;
               this.longitude[i] = response.data[i].longitude;
               this.latitude[i] = response.data[i].latitude;

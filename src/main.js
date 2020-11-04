@@ -3,7 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store/'
 import ElementUI from 'element-ui'
-// import BScroll from 'better-scroll'
+import BScroll from 'better-scroll'
 import ElTableBar from 'el-table-bar-base'
 
 

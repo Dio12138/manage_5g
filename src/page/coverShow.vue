@@ -45,7 +45,7 @@
                 <div style="position: relative;top:25px;width: 60%;">
                     <div>中心基站经纬度：</div>
                     <div style="position: relative;top:5px">
-                        维度坐标：
+                        纬度坐标：
                         <el-input class="positionshow"
                                   :placeholder="centerCoordinate.longitude"
                                   suffix-icon="el-icon-date">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="right" id="container"></div>
+            <div class="right" id="container" v-loading="loading" element-loading-text="拼命加载中"></div>
         </div>
     </div>
 </template>
@@ -76,10 +76,10 @@
         },
         data() {
             return {
-
+                loading: false,
                 form:{
                     stationId: 4916192,
-                    range:3,
+                    range:1,
                     theme:"RRC_build_request_times",
                 },
                 // options:[
@@ -104,6 +104,7 @@
         },
         methods: {
             showMap() {
+                this.loading= true;
                 this.$api.get('5G_info/getHotMap', {
                     'stationId': this.form.stationId,
                     'range':this.form.range,
@@ -117,6 +118,7 @@
                     this.location=response.data.stations;
                     this.count_max=response.data.count_max;
                     this.showMap1();
+                    this.loading=false;
 
                 });
             },

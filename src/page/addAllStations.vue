@@ -94,11 +94,10 @@
               <!-- 上传表单 -->
               <!-- https://jsonplaceholder.typicode.com/posts/ -->
               <!-- action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/" -->
-              <!-- action="http://localhost:8002/F:/Study/PHP/phpStudy/phpstudy_pro/WWW/tp5_5g/public/uploads" -->
               <el-upload
                 ref="upload"
                 accept=".csv"
-                action="http://pet.qinqingonline.com:9001/uploads/uploadsCSV"
+                action='https://jsonplaceholder.typicode.com/posts/'
                 :before-upload="beforeUpload"
                 :limit="1"
                 :file-list="fileList"
@@ -460,12 +459,12 @@ export default {
         // console.log(this.inventoryRequests);
         // const totalNum = this.inventoryRequests.length;
 
-        if (totalNum > 50) {
-          let intNum = parseInt(this.inventoryRequests.length / 50); //取整数
-          let charNum = this.inventoryRequests.length - 50 * intNum; //取余数
+        if (totalNum > 5000) {
+          let intNum = parseInt(this.inventoryRequests.length / 5000); //取整数
+          let charNum = this.inventoryRequests.length - 5000 * intNum; //取余数
           let arr = [];
           let result = [];
-          const sliceNum = 50; //取每次截取的长度（result的对象长度）
+          const sliceNum = 5000; //取每次截取的长度（result的对象长度）
           for (let i = 0; i < totalNum / sliceNum; i++) {
             result.push(
               this.inventoryRequests.slice(i * sliceNum, (i + 1) * sliceNum)
@@ -490,8 +489,9 @@ export default {
             await pre;
             return this.uploadData(stringData);
           }, Promise.resolve());
-        } else if (totalNum < 50) {
+        } else if (totalNum < 5000) {
           let json = JSON.stringify(this.inventoryRequests);
+          console.log(json);
           this.$api.post("5G_info/addBatch", { json }, (response) => {
             if (response.status !== 200) {
               console.log("后台连接失败");
@@ -525,7 +525,7 @@ export default {
         setTimeout(() => {
           this.importDetail();
           this.$message({
-            message: "上传成功！",
+            message: "部分上传成功！",
             type: "success",
           });
         }, 2000);
