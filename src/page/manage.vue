@@ -2,14 +2,14 @@
     <div class="manage_page fillcontain">
         <el-row style="height: 100%;">
             <el-col :span="4" style="min-height: 100%; background-color: #111111;">
-                <el-menu :default-active="defaultActive" style="min-height: 100%;backgroundColor: #111111" router>
+                <el-menu :default-active="defaultActive" style="min-height: 100%; backgroundColor: #111111" router>
                     <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
                     <el-submenu index="2">
                         <template slot="title"><i class="el-icon-document"></i>数据管理</template>
                         <el-menu-item index="searchStation">展示基站数据</el-menu-item>
-                        <el-menu-item index="reportPage">报告页下载</el-menu-item>
-                        <el-menu-item index="testTable">测试表格下载</el-menu-item>
-                        <el-menu-item index="collectStationInfos">数据采集</el-menu-item>
+                        <!-- <el-menu-item index="reportPage">报告页下载</el-menu-item>
+                        <el-menu-item index="testTable">测试表格下载</el-menu-item> -->
+                        <!-- <el-menu-item index="collectStationInfos">数据采集</el-menu-item> -->
                         <el-menu-item index="addAllStations">数据批量导入</el-menu-item>
                         <el-menu-item index="addStations">数据添加</el-menu-item>
                         <el-menu-item index="deleteStations">数据删除</el-menu-item>
@@ -31,7 +31,8 @@
                     <el-submenu index="4">
                         <template slot="title"><i class="el-icon-plus"></i>5G指标展示</template>
                         <el-menu-item index="coverShow">覆盖性展示</el-menu-item>
-                        <el-menu-item index="interferenceShow">干扰展示</el-menu-item>
+                        <el-menu-item index="coverShowAllAround">全范围覆盖性展示</el-menu-item>
+                        <!-- <el-menu-item index="interferenceShow">干扰展示</el-menu-item> -->
                         <el-menu-item index="othersShow">其他性能展示</el-menu-item>
                     </el-submenu>
                     <!-- <el-submenu index="5">
@@ -43,12 +44,14 @@
                         <!-- <el-menu-item index="heatMap">热力图</el-menu-item> -->
                         <el-menu-item index="sectorShow">扇区图</el-menu-item>
                     </el-submenu>
-                    <el-submenu index="7">
+                    <!-- <el-submenu index="7">
                         <template slot="title"><i class="el-icon-minus"></i>智能分析</template>
                         <el-menu-item index="dataAnalysis">数据分析</el-menu-item>
-                    </el-submenu>
+                    </el-submenu> -->
                     <el-submenu index="8">
                         <template slot="title"><i class="el-icon-plus"></i>报表展示</template>
+                        <el-menu-item index="reportPage">报告页下载</el-menu-item>
+                        <el-menu-item index="testTable">测试表格下载</el-menu-item>
                     </el-submenu>
                     <el-submenu index="9">
                         <template slot="title"><i class="el-icon-star-on"></i>效果图展示</template>
@@ -75,6 +78,7 @@
                     </el-submenu>
                 </el-menu>
             </el-col>
+            
             <el-col :span="20" style="height: 100%;overflow: auto;">
                 <keep-alive>
                     <router-view></router-view>
@@ -98,7 +102,19 @@
 <style lang="less" scoped>
     @import '../style/mixin';
 
-    // .manage_page {
-    //     /*background-color: #d1dbe5;*/
-    // }
+//     .manage_page {
+//         /*background-color: #d1dbe5;*/
+//     }
+//   .aside {
+//     background-color: #D3DCE6;
+//     color: #333;
+//     text-align: center;
+//     line-height: 200px;
+//   }
+//   .main {
+//     background-color: #E9EEF3;
+//     color: #333;
+//     text-align: center;
+//     line-height: 160px;
+//   }
 </style>

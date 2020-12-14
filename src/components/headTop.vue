@@ -75,7 +75,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-left: 20px;
+		padding-left: 20px;;
     }
     .section_title1{
         text-align: center;

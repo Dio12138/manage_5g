@@ -924,6 +924,11 @@ export default {
   height: 10px !important;
   background-color: #b3c0c09e;
 }
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6pxn rgba(0, 0, 0, 0.3);
+    background-color: #e4e4e4;
+}
 
 .el-table__fixed::before,
 .el-table__fixed-right::before {

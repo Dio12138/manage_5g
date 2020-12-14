@@ -1,8 +1,13 @@
 <template>
     <div>
         <head-top></head-top>
-        <el-input class="wb11" v-model="input" placeholder="请输入基站id" @keyup.enter.native="submit1"></el-input>
-        <el-button id="wb12" type="primary" icon="el-icon-download" v-show="haveUrl"><a v-bind:href="excelUrl">下载</a></el-button>
+        <!-- <el-input class="wb11" v-model="input" placeholder="请输入基站id" @keyup.enter.native="submit1"></el-input>
+        <el-button id="wb12" type="primary" icon="el-icon-download" v-show="haveUrl"><a v-bind:href="excelUrl">下载</a></el-button> -->
+		<div id="title">
+            <h2>报告页下载</h2>
+        </div>
+		<el-input class="wb11" v-model="input" placeholder="请输入基站id"></el-input>
+        <el-button id="wb12" type="primary" icon="el-icon-download" @click="submit1">下载</el-button>
         <el-alert
             id="wb13"
             v-show="haveAlert"
@@ -50,6 +55,9 @@
 							this.haveUrl=true;
 							this.haveAlert=false;
 							this.excelUrl=response.data.excelurl;
+							console.log(this.excelUrl);
+							// this.$router.push(this.excelUrl);
+							window.location.href = this.excelUrl;
 						} else {
 							console.log(response.data.message);
 							this.haveUrl=false;
@@ -69,22 +77,27 @@
 <style scoped>
     #wb13{
         position: relative;
-        left:300px;
-        top:300px;
+        left:30px;
+        top:30px;
     }
     #wb12{
         position: relative;
-        left:480px;
-        top:300px;
+        left:48px;
+        top:30px;
     }
     .wb11{
         position: relative;
-        left:500px;
-        top:300px;
+        left:50px;
+        top:30px;
         width: 300px;
         padding: 25px;
         border-radius: 5px;
         text-align: center;
         background-color: #fff;
     }
+	#title{
+		position: relative;
+        left:75px;
+        top:30px;
+	}
 </style>

@@ -3,14 +3,12 @@
         <head-top></head-top>
 		<section class="data_section">
 <!--			<header class="section_title" style="color: #1d90e6">杭州5G基站管理系统</header>-->
-			<el-row :gutter="20" style="margin-bottom: 10px;">
+			<!-- <el-row :gutter="20" style="margin-bottom: 10px;">
                 <el-col :span="6" ><div class="data_list today_head"><span class="data_num head">数据下载：</span></div></el-col>
 				<el-col :span="4" ><div class="data_list" @click="report1"><span class="data_num">报告页</span> </div></el-col>
-				<el-col :span="4"><div class="data_list" @click="report2"><span class="data_num">测试表格</span> </div></el-col>
-<!--                <el-col :span="6"><div class="data_list"><span class="data_num">搜索</span> </div></el-col>-->
-<!--                <el-col :span="6"><div class="data_list"><span class="data_num">{{adminCount}}</span> 新增管理员</div></el-col>-->
-			</el-row>
-            <br>
+				<el-col :span="4"><div class="data_list" @click="report2"><span class="data_num">测试表格</span> </div></el-col> -->
+			<!-- </el-row> -->
+            <!-- <br>
             <el-row :gutter="20">
                 <el-col :span="6"><div class="data_list all_head"><span class="data_num head">效果图：</span></div></el-col>
                 <el-col :span="4"><div class="data_list" @click="show1"><span class="data_num">RSRP</span> </div></el-col>
@@ -18,8 +16,9 @@
                 <el-col :span="4"><div class="data_list" @click="show3"><span class="data_num">SINR</span></div></el-col>
                 <el-col :span="4"><div class="data_list" @click="show4"><span class="data_num">PCI</span></div></el-col>
             </el-row>
-            <br>
-            <stationshow id="map1"></stationshow>
+            <br> -->
+            <!-- <StationShow_1 id="map1"></StationShow_1> -->
+			<station-show id="map1"></station-show>
 
 <!--            <el-table-->
 <!--                :data="tableData"-->
@@ -47,7 +46,8 @@
 
 <script>
 	import headTop from '../components/headTop'
-	import stationshow from '../components/station/StationShow'
+	import StationShow_1 from '../components/station/StationShow_1'
+	import StationShow from '../components/station/StationShow.vue'
 	import tendency from '../components/tendency'
 	import dtime from 'time-formater'
 	import {userCount, orderCount, getUserCount, getOrderCount, adminDayCount, adminCount} from '@/api/getData'
@@ -84,7 +84,8 @@
     	components: {
     		headTop,
     		tendency,
-            stationshow,
+            StationShow_1,
+        	StationShow,
     	},
     	mounted(){
     		this.initData();
@@ -201,11 +202,11 @@
         .all_head{
             background: #20A0FF;
         }
-        #map1{
-            /*border-style:;*/
-            /*width: 40%;*/
-            /*height: 50%;*/
-        }
+        // #map1{
+        //     /*border-style:;*/
+        //     /*width: 40%;*/
+        //     /*height: 50%;*/
+        // }
 	}
     .wan{
         .sc(16px, #333)

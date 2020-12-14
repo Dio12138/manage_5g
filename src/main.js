@@ -5,6 +5,7 @@ import store from './store/'
 import ElementUI from 'element-ui'
 import BScroll from 'better-scroll'
 import ElTableBar from 'el-table-bar-base'
+import axios from 'axios';
 
 
 //Vue.use(axios) axios不能用use 只能修改原型链 
@@ -20,6 +21,8 @@ Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 Vue.use(ElTableBar);
+
+// axios.defaults.baseURL = '/';
 
 new Vue({
 	el: '#app',

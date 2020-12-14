@@ -29,10 +29,12 @@ const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'a
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
 const stationshow = r => require.ensure([], () => r(require('@/components/station/StationShow')), 'stationshow');
+const stationshow_1 = r => require.ensure([], () => r(require('@/components/station/StationShow_1')), 'stationshow_1');
 const test1 = r => require.ensure([], () => r(require('@/components/demo/test1')), 'test1');
 const othersShow = r => require.ensure([], () => r(require('@/page/othersShow')), 'othersShow');
 const sectorShow = r => require.ensure([], () => r(require('@/page/sectorShow')), 'sectorShow');
 const coverShow = r => require.ensure([], () => r(require('@/page/coverShow')), 'coverShow');
+const coverShowAllAround = r => require.ensure([], () => r(require('@/page/coverShowAllAround')), 'coverShowAllAround');
 const interferenceShow = r => require.ensure([], () => r(require('@/page/interferenceShow')), 'interferenceShow');
 const collectStationInfos = r => require.ensure([], () => r(require('@/page/collectStationInfos')), 'collectStationInfos');
 const addAllStations = r => require.ensure([], () => r(require('@/page/addAllStations')), 'addAllStations');
@@ -110,11 +112,18 @@ const routes = [
             path: '/explain',
             component: explain,
             meta: ['说明', '说明'],
-        }, {
-            path: '/stationshow',
-            component: stationshow,
+        },
+        //  {
+        //     path: '/stationshow',
+        //     component: stationshow,
+        //     meta: ['查看', '地图'],
+        // },
+        {
+            path: '/stationshow_1',
+            component: stationshow_1,
             meta: ['查看', '地图'],
-        }, {
+        },
+         {
             path: '/test1',
             component: test1,
             meta: ['查看', '地图1'],
@@ -161,6 +170,11 @@ const routes = [
             path: '/coverShow',
             component: coverShow,
             meta: ['5G指标展示', '覆盖性展示'],
+        },
+        {
+            path: '/coverShowAllAround',
+            component: coverShowAllAround,
+            meta: ['5G指标展示', '全范围覆盖性展示'],
         },
         {
             path: '/interferenceShow',

@@ -28,7 +28,15 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/': {
+      //     target: 'http://www.5g.com/',
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //         '^/': ''
+      //     }
+      // }
+    },
     context: [ //代理路径
         '/shopping',
         '/ugc',

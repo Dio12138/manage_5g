@@ -304,9 +304,6 @@
             v-model.trim="addForm.cover_scence"
             placeholder="请选择小区覆盖类型"
           >
-          <el-card>
-            <el-card></el-card>
-          </el-card>
             <el-option label="密集城区" value="密集城区"></el-option>
             <el-option label="核心城区" value="核心城区"></el-option>
             <el-option label="一般城区" value="一般城区"></el-option>
@@ -701,6 +698,11 @@ export default {
   width: 10px !important;
   height: 10px !important;
   background-color: #b3c0c09e;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6pxn rgba(0, 0, 0, 0.3);
+    background-color: #e4e4e4;
 }
 /* 去除滚动条 */
 /* ::-webkit-scrollbar {

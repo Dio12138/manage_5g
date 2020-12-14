@@ -4,7 +4,7 @@
         <!--    <input type="text" placeholder="出发地" style="width: 15em" id="startAddress" v-model="from">-->
         <!--    <input type="text" placeholder="目的地" style="width: 15em" id="endAddress" v-model="to">-->
 <!--        <input type="text" placeholder="搜索" style="width: 15em" id="searchAddress" v-model="address">-->
-        <el-input placeholder="请输入搜索地址" v-model="address" style="width: 15em"></el-input>
+        <el-input placeholder="请输入搜索地址" v-model="address" style="width: 15em" @keyup.enter.native="searchAddress"></el-input>
         <el-button type="primary" icon="el-icon-delete" @click="searchAddress">搜索</el-button>
 
 <!--        <button @click="searchAddress">搜索</button>-->
@@ -25,41 +25,88 @@
 				longitude: [],
 				latitude: [],
 				location: [],
+				gNBID: [],
 				data: {},
 				from: "",
 				to: "",
 				isOK: false,
 				timer: '',
 				address:'',
+				marker: {},
 			}
 		},
-		created() {
-			console.log("进入created");
-			this.$api.get('5G_info/getAllStationInfo', {}, response => {
-				if (response.status >= 200 && response.status < 300) {
-					console.log(response.data);
-					if (response.data.success) {
-						this.data = response.data;
-						this.longitude = response.data.longitude;
-						this.latitude = response.data.latitude;
-						this.location = response.data.location;
-						this.isOK = true;
-						// console.log(this.isOK);
-					} else {
-						console.log("111");
-					}
-
-				} else {
-					console.log(response.message);
-				}
-			});
-		},
+		// created() {
+		// 	console.log("进入created");
+		// 	this.$api.get('5G_info/getAllStationInfo', {}, response => {
+		// 		if (response.status >= 200 && response.status < 300) {
+		// 			console.log(response.data);
+		// 			if (response.data.success) {
+		// 				this.data = response.data;
+		// 				this.longitude = response.data.longitude;
+		// 				this.latitude = response.data.latitude;
+		// 				this.location = response.data.location;
+		// 				this.isOK = true;
+		// 				// console.log(this.isOK);
+		// 			} else {
+		// 				console.log("111");
+		// 			}
+		// 		} else {
+		// 			console.log(response.message);
+		// 		}
+		// 	});
+		// },
 		methods: {
 			searchAddress() {
-				var local = new BMap.LocalSearch(map, {
-					renderOptions: {map: map}
+				var searchId = parseInt(this.address);
+				var index = this.gNBID.indexOf(searchId);
+				console.log(index);
+				if(index > -1){
+					map.removeOverlay(this.marker);
+					var point = new BMap.Point(this.longitude[index], this.latitude[index]);
+					this.marker = new BMap.Marker(point);  // 创建标注
+					map.addOverlay(this.marker);              // 将标注添加到地图中
+					map.panTo(point);
+				}else{
+					alert('基站ID不正确，请重新输入');
+				}
+			},
+			showMap(){
+				console.log("进入created");
+				this.$api.get('5G_info/getAllStationInfo', {}, response => {
+					if (response.status >= 200 && response.status < 300) {
+						console.log(response.data);
+						if (response.data.success) {
+							this.data = response.data;
+							this.longitude = response.data.longitude;
+							this.latitude = response.data.latitude;
+							this.location = response.data.location;
+							this.gNBID = response.data.gNBID;
+							this.isOK = true;
+							this.draw();
+							// console.log(this.isOK);
+						} else {
+							console.log("111");
+						}
+					} else {
+						console.log(response.message);
+					}
 				});
-				local.search(this.address);
+			},
+			draw(){
+				map = new BMap.Map("container",{});
+				// 创建地图实例
+				var point = new BMap.Point(120.1522, 30.31919);
+				// 创建点坐标
+				map.centerAndZoom(point, 15);
+				// 初始化地图，设置中心点坐标和地图级别
+				map.enableScrollWheelZoom(true);
+				map.addControl(new BMap.NavigationControl());
+				map.addControl(new BMap.ScaleControl());
+				map.addControl(new BMap.OverviewMapControl());
+				map.addControl(new BMap.MapTypeControl());
+				//这样做是因为需要等待created里的axios请求完成，感觉没法讲created和mounted里的操作搞成一个同步，
+            	// 默认就是异步的，所以只能用一个定时器了
+				this.timer = setTimeout(this.fun1(), 1000);
 			},
 			fun1() {
 				// console.log(this.longitude);
@@ -72,9 +119,10 @@
 						var point=new BMap.Point(this.longitude[i], this.latitude[i]);
 						point.location=this.location[i];
 						points.push(point);
+						// this.markerList.push(i);
 					}
 					var options = {
-						size: BMAP_POINT_SIZE_BIG,
+						size: BMAP_POINT_SIZE_NORMAL,
 						shape: BMAP_POINT_SHAPE_WATERDROP,
 						color: '#d340c3'
 					};
@@ -88,7 +136,7 @@
 						var point = new BMap.Point(e.point.lng, e.point.lat);
 						var opts = {
 							width: 250,     // 信息窗口宽度
-							height: 80,     // 信息窗口高度
+							height: 90,     // 信息窗口高度
 							title: "基站位置：", // 信息窗口标题
 							enableMessage: true//设置允许信息窗发送短息
 						};
@@ -103,21 +151,22 @@
 			}
 		},
 		mounted() {
-			console.log("进入mounted")
-			map = new BMap.Map("container",{});
-			// 创建地图实例
-			var point = new BMap.Point(120.1522, 30.31919);
-			// 创建点坐标
-			map.centerAndZoom(point, 15);
-			// 初始化地图，设置中心点坐标和地图级别
-			map.enableScrollWheelZoom(true);
-			map.addControl(new BMap.NavigationControl());
-			map.addControl(new BMap.ScaleControl());
-			map.addControl(new BMap.OverviewMapControl());
-			map.addControl(new BMap.MapTypeControl());
-			//这样做是因为需要等待created里的axios请求完成，感觉没法讲created和mounted里的操作搞成一个同步，
-            // 默认就是异步的，所以只能用一个定时器了
-			this.timer = setTimeout(this.fun1, 1000);
+			// console.log("进入mounted")
+			// map = new BMap.Map("container",{});
+			// // 创建地图实例
+			// var point = new BMap.Point(120.1522, 30.31919);
+			// // 创建点坐标
+			// map.centerAndZoom(point, 15);
+			// // 初始化地图，设置中心点坐标和地图级别
+			// map.enableScrollWheelZoom(true);
+			// map.addControl(new BMap.NavigationControl());
+			// map.addControl(new BMap.ScaleControl());
+			// map.addControl(new BMap.OverviewMapControl());
+			// map.addControl(new BMap.MapTypeControl());
+			// //这样做是因为需要等待created里的axios请求完成，感觉没法讲created和mounted里的操作搞成一个同步，
+            // // 默认就是异步的，所以只能用一个定时器了
+			// this.timer = setTimeout(this.fun1, 1000);
+			this.showMap();
 		},
 		beforeDestroy() {
 			clearTimeout(this.timer);

@@ -2,6 +2,7 @@
     <div>
         <head-top></head-top>
         <el-input class="wb1" v-model="input" placeholder="请输入基站id" @keyup.enter.native="getStations"></el-input>
+        <el-button class="btn" type="primary" @click="getStations">搜索</el-button>
         <el-alert
             id="wb13"
             v-if="haveAlert"
@@ -120,5 +121,4 @@
         text-align: center;
         background-color: #fff;
     }
-
 </style>

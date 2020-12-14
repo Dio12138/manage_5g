@@ -94,7 +94,8 @@
 						if (response.data.success) {
 							this.$message({
 								type: 'success',
-								message: '登录成功'
+								message: '登录成功',
+								duration:1000
 							});
 							this.$router.push('manage');
 						} else {

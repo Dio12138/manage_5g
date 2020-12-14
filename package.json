@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-preset-es2015": "^6.24.1",
+    "baidu-map": "^0.1.4",
     "better-scroll": "^2.0.5",
     "echarts": "^3.5.4",
     "el-table-bar-base": "^2.1.4",

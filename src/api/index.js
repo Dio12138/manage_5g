@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 let http = axios.create({
-    baseURL: 'http://pet.qinqingonline.com:9001',
+    baseURL: 'http://101.69.255.134:9001',
+    // baseURL: 'http://pet.qinqingonline.com:9001',
     // baseURL: 'http://www.5g.com',
     withCredentials: false,// 是否允许携带cookie,因为我们的tp5后台设置的是不能携带cookie,这里要false(参考:ttps://segmentfault.com/q/1010000016904795)
     headers: {
